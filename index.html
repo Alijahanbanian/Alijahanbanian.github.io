@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -81,7 +81,6 @@
             cursor: pointer;
             font-size: 16px;
             transition: background 0.3s;
-            font-family: 'Vazirmatn';
         }
 
         button:hover {
@@ -170,14 +169,7 @@
         </div>
 
         <div class="search-section">
-            <!-- <div class="input-group">
-                <label for="professorSearch">جستجوی بر اساس نام استاد:</label>
-                <div style="display: flex; gap: 10px; padding-top: 10px;">
-                    <input type="text" id="professorSearch" placeholder="نام استاد را وارد کنید">
-                    <button onclick="searchProfessor()">جستجو</button>
-                </div>
-                <div class="result-box" id="professorResult"></div>
-            </div> -->
+
 
             <div class="input-group">
                 <label for="expertiseSearch">جستجوی بر اساس حوزه تخصصی:</label>
@@ -253,35 +245,9 @@
             setTimeout(() => uploadStatus.textContent = '', 5000);
         }
 
-//         function searchProfessor() {
-//     const professor = document.getElementById("professorSearch").value.trim();
-//     if (!professor) {
-//         showStatus('لطفا نام استاد را وارد کنید', 'error');
-//         return;
-//     }
-
-//     const resultDiv = document.getElementById("professorResult");
-//     resultDiv.innerHTML = ""; // پاک کردن نتایج قبلی
-
-//     if (!Object.keys(excelData).length) {
-//         resultDiv.textContent = "لطفا ابتدا فایل اکسل را بارگذاری کنید";
-//         return;
-//     }
-
-//     if (excelData[professor]) {
-//         excelData[professor].forEach(expertise => {
-//             let expertiseElement = document.createElement("span");
-//             expertiseElement.textContent = expertise;
-//             expertiseElement.classList.add("expertise-item"); // کلاس برای استایل‌دهی
-//             resultDiv.appendChild(expertiseElement);
-//         });
-//     } else {
-//         resultDiv.textContent = "استادی با این نام یافت نشد";
-//     }
-// }
 
 function searchExpertise() {
-    const expertiseInput = document.getElementById("expertiseSearch").value.trim().toLowerCase();
+    const expertiseInput = document.getElementById("expertiseSearch").value.toLowerCase();
     if (!expertiseInput) {
         showStatus('لطفا حوزه تخصصی را وارد کنید', 'error');
         return;
@@ -296,7 +262,9 @@ function searchExpertise() {
     }
 
     // تقسیم متن ورودی به کلمات جداگانه
-    const keywords = expertiseInput.split(/\s+/);
+    // const keywords = expertiseInput.split(/\s+/);
+    const keywords = expertiseInput;
+    console.log(keywords);
 
     // فیلتر اساتیدی که همه‌ی کلمات را در حوزه تخصصی خود دارند
     const matchedProfessors = Object.keys(excelData).filter(prof =>
@@ -316,6 +284,335 @@ function searchExpertise() {
         resultDiv.textContent = "هیچ استادی در این حوزه یافت نشد";
     }
 }
+    
+    </script>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
+        <title>سامانه مکانیابی تخصص اساتید</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+        <style>
+            * {
+                font-family: 'Segoe UI', Tahoma, sans-serif;
+                box-sizing: border-box;
+            }
+    
+            body {
+                font-family: 'Vazirmatn' !important;
+                max-width: 800px;
+                margin: 0 auto;
+                padding: 20px;
+                background-color: #f5f7fa;
+            }
+    
+            .container {
+                background: white;
+                border-radius: 10px;
+                padding: 30px;
+                box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            }
+    
+            .upload-section {
+                border: 2px dashed #ccc;
+                padding: 30px;
+                text-align: center;
+                margin-bottom: 40px;
+                position: relative;
+                font-family: 'Vazirmatn';
+            }
+    
+            .upload-section.active {
+                border-color: #4CAF50;
+                background-color: #f8f9fa;
+                font-family: 'Vazirmatn';
+    
+            }
+    
+            h1 {
+                color: #2c3e50;
+                font-family: 'Vazirmatn';
+                text-align: center;
+                margin-bottom: 40px;
+            }
+            h3 , p, label{
+                font-family: 'Vazirmatn';
+            }
+            .search-section {
+                margin-bottom: 30px;
+            }
+    
+            .input-group {
+                margin-bottom: 20px;
+            }
+    
+            input {
+                width: 100%;
+                padding: 12px;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                font-size: 16px;
+                margin-bottom: 10px;
+                font-family: 'Vazirmatn';
+            }
+    
+            button {
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                padding: 12px 25px;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+                transition: background 0.3s;
+            }
+    
+            button:hover {
+                background-color: #45a049;
+            }
+    
+            .result-box {
+                background: #f8f9fa;
+                padding: 15px;
+                border-radius: 5px;
+                margin-top: 15px;
+                min-height: 50px;
+                font-family: 'Vazirmatn';
+            }
+    
+            .status-message {
+                text-align: center;
+                padding: 10px;
+                margin: 15px 0;
+                border-radius: 5px;
+            }
+    
+            .success {
+                background: #dff0d8;
+                color: #3c763d;
+                font-family: 'Vazirmatn';
+            }
+    
+            .error {
+                background: #f2dede;
+                color: #a94442;
+                font-family: 'Vazirmatn';
+            }
+    
+            @media (max-width: 768px) {
+                body {
+                    padding: 10px;
+                }
+                
+                .container {
+                    padding: 15px;
+                }
+            }
+            .professor-name {
+        display: inline-block;
+        background: #e3f2fd;
+        padding: 8px 12px;
+        margin: 5px;
+        border-radius: 5px;
+        font-weight: bold;
+        color: #000000;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+    
+    .professor-name:hover {
+        background: #bbdefb;
+    }
+    .professor-name, .expertise-item {
+        display: inline-block;
+        background: #e8f5e9;
+        padding: 8px 12px;
+        margin: 5px;
+        border-radius: 5px;
+        font-weight: bold;
+        color: #000000;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+    
+    .professor-name:hover, .expertise-item:hover {
+        background: #c8e6c9;
+    }
+    
+        </style>
+    </head>
+<body>
+    <div class="container">
+        <h1>سامانه مکانیابی تخصص اساتید</h1>
+
+        <div class="upload-section" id="dropZone">
+            <h3>بارگذاری فایل اکسل</h3>
+            <p>فایل را اینجا رها کنید یا کلیک کنید</p>
+            <input type="file" id="fileInput" accept=".xlsx" hidden>
+            <div id="uploadStatus" class="status-message"></div>
+        </div>
+
+        <div class="search-section">
+            
+            <div class="input-group">
+                <label for="expertiseSearch">جستجوی بر اساس حوزه تخصصی:</label>
+                <div style="display: flex; gap: 10px; padding-top: 10px;">
+                    <input type="text" id="expertiseSearch" placeholder="نام حوزه تخصصی را وارد کنید">
+                    <button onclick="searchExpertise()">جستجو</button>
+                </div>
+                <div class="result-box" id="expertiseResult"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let excelData = {};
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+        const uploadStatus = document.getElementById('uploadStatus');
+
+        // Drag and drop handlers
+        dropZone.addEventListener('click', () => fileInput.click());
+        
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('active');
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('active');
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('active');
+            const file = e.dataTransfer.files[0];
+            if (file) handleFile(file);
+        });
+
+        fileInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (file) handleFile(file);
+        });
+
+        function handleFile(file) {
+            if (!file.name.endsWith('.xlsx')) {
+                showStatus('لطفا یک فایل اکسل معتبر انتخاب کنید', 'error');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const data = new Uint8Array(e.target.result);
+                    const workbook = XLSX.read(data, {type: 'array'});
+                    const sheetName = workbook.SheetNames[0];
+                    const sheet = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName], {header: 1});
+                    
+                    sheet[0].forEach((prof, index) => {
+                        excelData[prof] = sheet.slice(1).map(row => row[index]).filter(x => x);
+                    });
+                    
+                    showStatus('فایل با موفقیت بارگذاری شد', 'success');
+                } catch (error) {
+                    showStatus('خطا در پردازش فایل', 'error');
+                    console.error(error);
+                }
+            };
+            reader.readAsArrayBuffer(file);
+        }
+
+        function showStatus(message, type) {
+            uploadStatus.textContent = message;
+            uploadStatus.className = `status-message ${type}`;
+            setTimeout(() => uploadStatus.textContent = '', 5000);
+        }
+
+        function searchProfessor() {
+    const professor = document.getElementById("professorSearch").value.trim();
+    if (!professor) {
+        showStatus('لطفا نام استاد را وارد کنید', 'error');
+        return;
+    }
+
+    const resultDiv = document.getElementById("professorResult");
+    resultDiv.innerHTML = ""; // پاک کردن نتایج قبلی
+
+    if (!Object.keys(excelData).length) {
+        resultDiv.textContent = "لطفا ابتدا فایل اکسل را بارگذاری کنید";
+        return;
+    }
+
+    if (excelData[professor]) {
+        excelData[professor].forEach(expertise => {
+            let expertiseElement = document.createElement("span");
+            expertiseElement.textContent = expertise;
+            expertiseElement.classList.add("expertise-item"); // کلاس برای استایل‌دهی
+            resultDiv.appendChild(expertiseElement);
+        });
+    } else {
+        resultDiv.textContent = "استادی با این نام یافت نشد";
+    }
+}
+
+        // function searchExpertise() {
+        //     const expertise = document.getElementById("expertiseSearch").value.trim().toLowerCase();
+        //     if (!expertise) {
+        //         showStatus('لطفا حوزه تخصصی را وارد کنید', 'error');
+        //         return;
+        //     }
+
+        //     const resultDiv = document.getElementById("expertiseResult");
+        //     if (!Object.keys(excelData).length) {
+        //         resultDiv.textContent = "لطفا ابتدا فایل اکسل را بارگذاری کنید";
+        //         return;
+        //     }
+
+        //     const matchedProfessors = Object.keys(excelData).filter(prof =>
+        //         excelData[prof].some(exp => exp.toLowerCase().includes(expertise))
+        //     );
+            
+        //     resultDiv.textContent = matchedProfessors.length 
+        //         ? `اساتید مرتبط:\n${matchedProfessors.join("\n")}`
+        //         : "هیچ استادی در این حوزه یافت نشد";
+        // }
+        function searchExpertise() {
+    const expertise = document.getElementById("expertiseSearch").value.trim().toLowerCase();
+    if (!expertise) {
+        showStatus('لطفا حوزه تخصصی را وارد کنید', 'error');
+        return;
+    }
+
+    const resultDiv = document.getElementById("expertiseResult");
+    resultDiv.innerHTML = ""; // پاک کردن نتایج قبلی
+
+    if (!Object.keys(excelData).length) {
+        resultDiv.textContent = "لطفا ابتدا فایل اکسل را بارگذاری کنید";
+        return;
+    }
+
+    const matchedProfessors = Object.keys(excelData).filter(prof =>
+        excelData[prof].some(exp => exp.toLowerCase().includes(expertise))
+    );
+
+    if (matchedProfessors.length) {
+        matchedProfessors.forEach(professor => {
+            let professorElement = document.createElement("span");
+            professorElement.textContent = professor;
+            professorElement.classList.add("professor-name"); // کلاس برای استایل‌دهی
+            resultDiv.appendChild(professorElement);
+        });
+    } else {
+        resultDiv.textContent = "هیچ استادی در این حوزه یافت نشد";
+    }
+}
+
     
     </script>
 </body>
