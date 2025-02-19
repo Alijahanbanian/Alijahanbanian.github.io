@@ -1,19 +1,17 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
-    <title>سامانه مکانیابی تخصص اساتید</title>
+    <title>Faculty Expertise Locator System</title>
     <style>
         * {
-                font-family: "Vazirmatn";
-                box-sizing: border-box;
-            }
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Vazirmatn', sans-serif;
+            font-family: sans-serif;
             background-color: #f5f7fa;
             text-align: center;
             margin: 50px;
@@ -43,7 +41,7 @@
         }
 
         input {
-            
+
             flex: 1;
             padding: 12px;
             border: 1px solid #ffffff;
@@ -52,10 +50,14 @@
             box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
             text-align: end;
         }
-        input[type="text"], input[type="password"], textarea, select { 
+
+        input[type="text"],
+        input[type="password"],
+        textarea,
+        select {
             background: #ffffff;
-    outline: none;
-}
+            outline: none;
+        }
 
         button {
             background-color: #4CAF50;
@@ -96,7 +98,6 @@
             background: #cfcfcf;
         }
 
-        /* استایل پاپ‌آپ */
         .popup {
             display: none;
             position: fixed;
@@ -112,14 +113,21 @@
             z-index: 1000;
             overflow-y: auto;
             animation: fadeIn 0.3s ease-in-out;
-            
+
         }
+
         .popup::-webkit-scrollbar {
-  display: none;
-}
+            display: none;
+        }
+
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         .popup h2 {
@@ -146,24 +154,25 @@
             justify-content: space-between;
 
         }
-        .popup ul li:hover{
+
+        .popup ul li:hover {
             background: #b9b9b9;
         }
+
         .popup button {
-            
-            
+
+
             background: none;
-            /* padding: 10px 20px; */
             border: none;
             color: rgb(0, 0, 0);
             cursor: pointer;
-            position: fixed  !important;
-            right: 5px  !important;
-            top: 5px  !important;
+            position: fixed !important;
+            right: 5px !important;
+            top: 5px !important;
             padding: 10px !important;
-            padding-top: 5px  !important;
+            padding-top: 5px !important;
             width: auto !important;
-            box-shadow: none  !important;
+            box-shadow: none !important;
 
         }
 
@@ -187,8 +196,15 @@
         }
 
         @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .category-title {
@@ -202,38 +218,35 @@
         .category-title:hover {
             color: #080808;
         }
+
         .category-content {
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
-    transition: max-height 0.5s ease-in-out, opacity 0.3s ease-in-out;
-}
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, opacity 0.3s ease-in-out;
+        }
 
-.subcategory-list li {
-    padding: 8px;
-    background: #f8f9fa;
-    border-radius: 5px;
-    margin: 4px 0;
-    transition: background 0.3s ease;
-    justify-content: left !important;
-    margin: 5px !important;
-}
+        .subcategory-list li {
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            margin: 4px 0;
+            transition: background 0.3s ease;
+            justify-content: left !important;
+            margin: 5px !important;
+        }
 
-.subcategory-list li:hover {
-    background: #e1e1e1;
-}
+        .subcategory-list li:hover {
+            background: #e1e1e1;
+        }
 
-.icon {
-    font-size: 14px;
-    margin-left: 5px;
-    transition: transform 0.3s ease-in-out;
-    display: inline-block;
-}
+        .icon {
+            font-size: 14px;
+            margin-left: 5px;
+            transition: transform 0.3s ease-in-out;
+            display: inline-block;
+        }
 
-
-
-
-        /* رسپانسیو برای موبایل */
         @media screen and (max-width: 768px) {
             .container {
                 padding: 20px;
@@ -245,11 +258,13 @@
                 padding: 15px;
             }
         }
+
         @media screen and (max-width: 600px) {
-            body{
+            body {
                 margin: auto !important;
             }
         }
+
         @media screen and (max-width: 600px) {
             .search-box {
                 flex-direction: column;
@@ -257,25 +272,29 @@
                 margin-top: 30px;
 
             }
-            #expertiseSearch{
+
+            #expertiseSearch {
                 width: 100%;
             }
-            button{
+
+            button {
                 width: 100%;
             }
+
             .popup {
                 width: 80%;
                 padding: 15px;
             }
-            
+
         }
     </style>
 </head>
+
 <body>
 
     <div class="container">
         <h1>Faculty Expertise Locator System</h1>
-        
+
         <div class="search-box">
             <input type="text" id="expertiseSearch" placeholder="Search by Area of Expertise">
             <button onclick="searchExpertise()">Search</button>
@@ -284,14 +303,14 @@
         <div class="professor-list" id="expertiseResult"></div>
     </div>
     <div id="popup" class="popup">
-        <div><button id = "closepopup" onclick="closePopup()">⨉</button></div>
+        <div><button id="closepopup" onclick="closePopup()">⨉</button></div>
         <div id="professorDetails"></div>
-        
+
     </div>
     <div id="popupOverlay" class="popup-overlay" onclick="closePopup()"></div>
 
     <script>
-     let jsonData = {};
+        let jsonData = {};
 
         fetch("https://gist.githubusercontent.com/Alijahanbanian/2e5aad026afbdf0f0e85d163d84867e5/raw/29cec270f4b00a1f40490c17bcda4355ba1818b1/dataset.json")
             .then(response => response.json())
@@ -328,79 +347,77 @@
             if (results.size > 0) {
                 resultBox.innerHTML = Array.from(results).map(name => `<span class="professor-name" onclick="showProfessorInfo('${name}')">${name}</span>`).join("");
             } else {
-                resultBox.innerHTML = "هیچ استادی یافت نشد!";
+                resultBox.innerHTML = "No professor found!";
             }
         }
 
         function showProfessorInfo(professorName) {
-    let professorData = jsonData[professorName][0];
-    let infoHTML = `<h2>${professorName}</h2>`;
+            let professorData = jsonData[professorName][0];
+            let infoHTML = `<h2>${professorName}</h2>`;
 
-    for (let category in professorData) {
-        let dataList = professorData[category];
-        if (Array.isArray(dataList) && dataList.length > 0) {
-            infoHTML += `
+            for (let category in professorData) {
+                let dataList = professorData[category];
+                if (Array.isArray(dataList) && dataList.length > 0) {
+                    infoHTML += `
                 <ul>
                     <li class="category-item" onclick="toggleCategoryContent(this)">
                         <span class="icon">▶</span> ${category}
                     </li>
                     <div class="category-content">
                         <ul class="subcategory-list">`;
-            dataList.forEach(item => {
-                infoHTML += `<li>${item}</li>`;
-            });
-            infoHTML += `
+                    dataList.forEach(item => {
+                        infoHTML += `<li>${item}</li>`;
+                    });
+                    infoHTML += `
                         </ul>
                     </div>
                 </ul>`;
+                }
+            }
+
+            document.getElementById("professorDetails").innerHTML = infoHTML;
+            document.getElementById("popup").style.display = "block";
+            document.getElementById("popupOverlay").style.display = "block";
+            document.getElementById("popup").scrollTop = 0;
+
+            document.querySelectorAll('.category-content').forEach(content => {
+                content.style.maxHeight = "0px";
+                content.style.opacity = "0";
+                content.style.overflow = "hidden";
+            });
         }
-    }
 
-    document.getElementById("professorDetails").innerHTML = infoHTML;
-    document.getElementById("popup").style.display = "block";
-    document.getElementById("popupOverlay").style.display = "block";
-    document.getElementById("popup").scrollTop = 0;
+        function toggleCategoryContent(liElement) {
+            let categoryContent = liElement.nextElementSibling;
+            let icon = liElement.querySelector(".icon");
 
-    // مقداردهی اولیه برای انیمیشن باز و بسته شدن
-    document.querySelectorAll('.category-content').forEach(content => {
-        content.style.maxHeight = "0px";
-        content.style.opacity = "0";
-        content.style.overflow = "hidden";
-    });
-}
+            if (!categoryContent) return;
 
-function toggleCategoryContent(liElement) {
-    let categoryContent = liElement.nextElementSibling; 
-    let icon = liElement.querySelector(".icon"); 
+            document.querySelectorAll(".category-content").forEach(content => {
+                if (content !== categoryContent) {
+                    content.style.maxHeight = "0px";
+                    content.style.opacity = "0";
+                    content.previousElementSibling.querySelector(".icon").style.transform = "rotate(0deg)";
+                }
+            });
 
-    if (!categoryContent) return;
 
-    // بستن همه دسته‌های دیگر
-    document.querySelectorAll(".category-content").forEach(content => {
-        if (content !== categoryContent) {
-            content.style.maxHeight = "0px";
-            content.style.opacity = "0";
-            content.previousElementSibling.querySelector(".icon").style.transform = "rotate(0deg)";
+            if (categoryContent.style.maxHeight === "0px" || !categoryContent.style.maxHeight) {
+                categoryContent.style.display = "block";
+                setTimeout(() => {
+                    categoryContent.style.opacity = "1";
+                    categoryContent.style.maxHeight = categoryContent.scrollHeight + "px";
+                }, 10);
+                icon.style.transform = "rotate(90deg)";
+            } else {
+                categoryContent.style.maxHeight = "0px";
+                categoryContent.style.opacity = "0";
+                icon.style.transform = "rotate(0deg)";
+                setTimeout(() => {
+                    categoryContent.style.display = "none";
+                }, 400);
+            }
         }
-    });
-
-    // باز و بسته کردن دسته کلیک‌شده
-    if (categoryContent.style.maxHeight === "0px" || !categoryContent.style.maxHeight) {
-        categoryContent.style.display = "block";
-        setTimeout(() => {
-            categoryContent.style.opacity = "1";
-            categoryContent.style.maxHeight = categoryContent.scrollHeight + "px";
-        }, 10);
-        icon.style.transform = "rotate(90deg)";
-    } else {
-        categoryContent.style.maxHeight = "0px";
-        categoryContent.style.opacity = "0";
-        icon.style.transform = "rotate(0deg)";
-        setTimeout(() => {
-            categoryContent.style.display = "none";
-        }, 400);
-    }
-}
 
         function closePopup() {
             document.getElementById("popup").style.display = "none";
@@ -409,4 +426,5 @@ function toggleCategoryContent(liElement) {
     </script>
 
 </body>
+
 </html>
