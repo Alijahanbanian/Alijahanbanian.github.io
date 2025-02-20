@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Faculty Expertise Locator System</title>
     <style>
         * {
@@ -48,10 +49,14 @@
             border-radius: 5px;
             font-size: 16px;
             box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-            text-align: end;
+            text-align: left;
+            direction: ltr;
+            -webkit-appearance: none; 
+    -moz-appearance: none; 
+    appearance: none;
         }
 
-        input[type="text"],
+        input[type="search"],
         input[type="password"],
         textarea,
         select {
@@ -296,7 +301,7 @@
         <h1>Faculty Expertise Locator System</h1>
 
         <div class="search-box">
-            <input type="text" id="expertiseSearch" placeholder="Search by Area of Expertise">
+            <input type="search" id="expertiseSearch" placeholder="Search by Area of Expertise" autocomplete="off">
             <button onclick="searchExpertise()">Search</button>
         </div>
 
@@ -318,6 +323,12 @@
                 jsonData = data;
             })
             .catch(error => console.error('Error loading JSON data:', error));
+
+            
+document.getElementById('expertiseSearch').addEventListener('touchstart', function() {
+    this.focus();
+});
+
         function searchExpertise() {
             const expertise = document.getElementById("expertiseSearch").value.trim().toLowerCase();
             if (!expertise) {
