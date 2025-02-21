@@ -85,6 +85,7 @@
             justify-content: left;
             gap: 10px;
             margin-top: 50px;
+            direction: ltr;
         }
 
         .professor-name {
@@ -353,10 +354,11 @@ document.getElementById('expertiseSearch').addEventListener('touchstart', functi
                     }
                 }
             }
-
+            const sortedArray = [...results].sort();
+            const newSet = new Set(sortedArray);
             let resultBox = document.getElementById("expertiseResult");
             if (results.size > 0) {
-                resultBox.innerHTML = Array.from(results).map(name => `<span class="professor-name" onclick="showProfessorInfo('${name}')">${name}</span>`).join("");
+                resultBox.innerHTML = Array.from(newSet).map(name => `<span class="professor-name" onclick="showProfessorInfo('${name}')">${name}</span>`).join("");
             } else {
                 resultBox.innerHTML = "No professor found!";
             }
